@@ -62,7 +62,6 @@
             margin-top: 30px;
         }
         .albums .album {
-            position: relative;
             text-align: center;
         }
         .albums img {
@@ -74,10 +73,8 @@
             transform: scale(1.05);
         }
         .upcoming-label {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            display: inline-block;
+            margin-top: 8px;
             background: rgba(255, 0, 0, 0.8);
             color: white;
             padding: 5px 10px;
@@ -87,8 +84,8 @@
         }
         .countdown {
             text-align: center;
-            font-size: 1.2rem;
-            margin-top: 15px;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
             color: #ff4747;
             font-weight: bold;
         }
@@ -145,11 +142,11 @@
                 <img src="file_00000000fe9861f4ad451823585ad32a.png" alt="Released Album">
                 <p>🔥 Current Release</p>
             </div>
-            <!-- Artwork 2 (Upcoming Release) -->
+            <!-- Artwork 2 (Upcoming Release with countdown above) -->
             <div class="album">
+                <div class="countdown" id="countdown"></div>
                 <img src="file_00000000d0b4620ab5245e8128fd2b12.png" alt="Upcoming Album">
                 <div class="upcoming-label">Upcoming Release</div>
-                <div class="countdown" id="countdown"></div>
             </div>
         </div>
     </section>
