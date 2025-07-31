@@ -5,65 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jaffi Úlfur - Community Forum</title>
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #121212; color: #fff; }
-        header { text-align: center; padding: 20px; background: #1f1f1f; }
-        nav { text-align: center; background: #222; padding: 10px; }
-        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        .container { max-width: 900px; margin: 20px auto; padding: 20px; }
-        input, textarea, button { width: 100%; margin: 8px 0; padding: 10px; border: none; border-radius: 5px; }
-        button { background: #9d72ff; color: #fff; cursor: pointer; font-weight: bold; }
-        .post { background: #1f1f1f; margin: 10px 0; padding: 15px; border-radius: 8px; }
-        .like-btn, .comment-btn { margin-right: 10px; cursor: pointer; color: #9d72ff; }
-        .comment-section { margin-top: 10px; padding-left: 15px; border-left: 2px solid #333; }
-        .profile-pic { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #fff;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #1f1f1f;
+        }
+        nav {
+            text-align: center;
+            background: #222;
+            padding: 10px;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .auth-section, .forum-section, .profile-section {
+            display: none;
+            margin-top: 20px;
+        }
+        input, textarea, button {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background: #9d72ff;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .post {
+            background: #1f1f1f;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .like-btn, .comment-btn {
+            margin-right: 10px;
+            cursor: pointer;
+            color: #9d72ff;
+        }
+        .comment-section {
+            margin-top: 10px;
+            padding-left: 15px;
+            border-left: 2px solid #333;
+        }
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Community Forum</h1>
-        <p>Welcome to the Jaffi Úlfur fan community!</p>
+        <h1>Jaffi Úlfur Community Forum</h1>
+        <p>Connect with fans & discuss music!</p>
     </header>
     <nav>
-        <a href="index.html">Home</a>
-        <a href="community.html">Community</a>
+        <a href="#" onclick="showSection('auth')">Ûlf Account</a>
+        <a href="#" onclick="showSection('forum')">Forum</a>
+        <a href="#" onclick="showSection('profile')">Profile</a>
     </nav>
-
     <div class="container">
-        <h2>Ûlf Account</h2>
-        <input type="text" id="reg-username" placeholder="Create Username">
-        <input type="password" id="reg-password" placeholder="Create Password">
-        <button onclick="register()">Register</button>
-        <h3>Login</h3>
-        <input type="text" id="login-username" placeholder="Username">
-        <input type="password" id="login-password" placeholder="Password">
-        <button onclick="login()">Login</button>
-        <p id="auth-status"></p>
-
-        <h2>Forum</h2>
-        <div id="forum-tools" style="display:none;">
-            <textarea id="topic-content" placeholder="Write a topic..."></textarea>
-            <button onclick="createPost()">Post</button>
+        <!-- AUTHENTICATION -->
+        <div id="auth" class="auth-section">
+            <h2>Ûlf Account</h2>
+            <div id="auth-forms">
+                <h3>Create Account</h3>
+                <input type="text" id="reg-username" placeholder="Username">
+                <input type="password" id="reg-password" placeholder="Password">
+                <button onclick="register()">Register</button>
+                <h3>Login</h3>
+                <input type="text" id="login-username" placeholder="Username">
+                <input type="password" id="login-password" placeholder="Password">
+                <button onclick="login()">Login</button>
+            </div>
+            <div id="auth-status"></div>
         </div>
-        <div id="posts"></div>
 
-        <h2>Your Profile</h2>
-        <img id="profile-pic" class="profile-pic" src="https://via.placeholder.com/80">
-        <p><strong>Username:</strong> <span id="profile-username"></span></p>
-        <textarea id="bio" placeholder="Write your bio..."></textarea>
-        <input type="file" id="profile-image">
-        <button onclick="saveProfile()">Save Profile</button>
+        <!-- FORUM -->
+        <div id="forum" class="forum-section">
+            <h2>Community Forum</h2>
+            <div id="forum-tools" style="display:none;">
+                <textarea id="topic-content" placeholder="Write your topic..."></textarea>
+                <button onclick="createPost()">Create Topic</button>
+            </div>
+            <div id="posts"></div>
+        </div>
+
+        <!-- PROFILE -->
+        <div id="profile" class="profile-section">
+            <h2>Your Profile</h2>
+            <img id="profile-pic" class="profile-pic" src="" alt="Profile Picture">
+            <p><strong>Username:</strong> <span id="profile-username"></span></p>
+            <textarea id="bio" placeholder="Write your bio..."></textarea>
+            <input type="file" id="profile-image">
+            <button onclick="saveProfile()">Save Profile</button>
+        </div>
     </div>
 
     <script>
-        // Same forum JS logic here (register, login, create posts, likes, comments, profiles)
+        // Show sections
+        function showSection(section) {
+            document.querySelectorAll(".auth-section, .forum-section, .profile-section")
+                .forEach(s => s.style.display = "none");
+            document.getElementById(section).style.display = "block";
+            if (section === "forum") loadPosts();
+            if (section === "profile") loadProfile();
+        }
+
+        // Register
         function register() {
             const username = document.getElementById("reg-username").value;
             const password = document.getElementById("reg-password").value;
             if (!username || !password) return alert("Fill all fields");
             if (localStorage.getItem(`user_${username}`)) return alert("User exists!");
             localStorage.setItem(`user_${username}`, JSON.stringify({password, bio:"", pic:""}));
-            alert("Ûlf Account created!");
+            alert("Account created!");
         }
+
+        // Login
         function login() {
             const username = document.getElementById("login-username").value;
             const password = document.getElementById("login-password").value;
@@ -72,9 +150,10 @@
                 localStorage.setItem("loggedInUser", username);
                 document.getElementById("auth-status").innerText = `Logged in as ${username}`;
                 document.getElementById("forum-tools").style.display = "block";
-                loadProfile();
             } else alert("Invalid login");
         }
+
+        // Create post
         function createPost() {
             const username = localStorage.getItem("loggedInUser");
             if (!username) return alert("Login required");
@@ -86,6 +165,8 @@
             document.getElementById("topic-content").value = "";
             loadPosts();
         }
+
+        // Load posts
         function loadPosts() {
             const posts = JSON.parse(localStorage.getItem("posts") || "[]");
             const container = document.getElementById("posts");
@@ -104,12 +185,61 @@
                     </div>`;
             });
         }
-        function likePost(i){ const posts=JSON.parse(localStorage.getItem("posts")||"[]"); posts[i].likes++; localStorage.setItem("posts",JSON.stringify(posts)); loadPosts(); }
-        function toggleComments(i){ const s=document.getElementById(`comments-${i}`); s.style.display=s.style.display==="none"?"block":"none"; }
-        function addComment(i){ const u=localStorage.getItem("loggedInUser"); if(!u)return alert("Login required"); const text=document.getElementById(`comment-input-${i}`).value; if(!text)return; const posts=JSON.parse(localStorage.getItem("posts")||"[]"); posts[i].comments.push({user:u,text}); localStorage.setItem("posts",JSON.stringify(posts)); loadPosts(); }
-        function loadProfile(){ const u=localStorage.getItem("loggedInUser"); if(!u)return; const user=JSON.parse(localStorage.getItem(`user_${u}`)); document.getElementById("profile-username").innerText=u; document.getElementById("bio").value=user.bio||""; document.getElementById("profile-pic").src=user.pic||"https://via.placeholder.com/80"; }
-        function saveProfile(){ const u=localStorage.getItem("loggedInUser"); const user=JSON.parse(localStorage.getItem(`user_${u}`)); user.bio=document.getElementById("bio").value; const file=document.getElementById("profile-image").files[0]; if(file){ const reader=new FileReader(); reader.onload=()=>{user.pic=reader.result; localStorage.setItem(`user_${u}`,JSON.stringify(user)); loadProfile();}; reader.readAsDataURL(file);} else { localStorage.setItem(`user_${u}`,JSON.stringify(user)); loadProfile(); } }
-        loadPosts();
+
+        function likePost(index) {
+            const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+            posts[index].likes++;
+            localStorage.setItem("posts", JSON.stringify(posts));
+            loadPosts();
+        }
+
+        function toggleComments(index) {
+            const section = document.getElementById(`comments-${index}`);
+            section.style.display = section.style.display === "none" ? "block" : "none";
+        }
+
+        function addComment(index) {
+            const username = localStorage.getItem("loggedInUser");
+            if (!username) return alert("Login required");
+            const text = document.getElementById(`comment-input-${index}`).value;
+            if (!text) return;
+            const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+            posts[index].comments.push({user: username, text});
+            localStorage.setItem("posts", JSON.stringify(posts));
+            loadPosts();
+        }
+
+        // Profile handling
+        function loadProfile() {
+            const username = localStorage.getItem("loggedInUser");
+            if (!username) return alert("Login required");
+            const user = JSON.parse(localStorage.getItem(`user_${username}`));
+            document.getElementById("profile-username").innerText = username;
+            document.getElementById("bio").value = user.bio || "";
+            document.getElementById("profile-pic").src = user.pic || "https://via.placeholder.com/80";
+        }
+
+        function saveProfile() {
+            const username = localStorage.getItem("loggedInUser");
+            const user = JSON.parse(localStorage.getItem(`user_${username}`));
+            user.bio = document.getElementById("bio").value;
+            const file = document.getElementById("profile-image").files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    user.pic = reader.result;
+                    localStorage.setItem(`user_${username}`, JSON.stringify(user));
+                    loadProfile();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                localStorage.setItem(`user_${username}`, JSON.stringify(user));
+                loadProfile();
+            }
+        }
+
+        // Show auth by default
+        showSection("auth");
     </script>
 </body>
 </html>
